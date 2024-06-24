@@ -1,0 +1,286 @@
+    Register 0 "Mode Set Register #1":
+
+        Bit 0: !!! Should be set to 0 normally - Enables locking onto external sync via the CSync pin, no display without a valid sync pulse source;
+        Bit 1: M3 HV counter latch enable;
+        Bit 2: !!! Should be set to 1 normally - M4 - Enables full palette bit depth as opposed to just the LSBs;
+        Bit 3: !!! Should be set to 0 normally - Outputs VCounter(0) on HSync pin when set, messes up EDCLK divisor ratios, RS0/1 = 11 H40 video mode will get thrashed, H32/H40 modes using the internal dot clock generator stay unaffected;
+        Bit 4: IE1 (Horizontal interrupt enable) - Will trigger an interrupt immediately when set because they occur in the background anyway;
+        Bit 5: LCB (Leftmost column blank), only covers the leftmost 8-pixel column - leftover from SMS;
+        Bit 6: Unused or unknown effect, Former SMS horizontal scroll lock;
+        Bit 7: Forces columns 24-31 (but not 32-39 in H40 mode) to a vertical scroll of 0 - Former SMS vertical scroll lock;
+
+
+    Register 1 "Mode Set Register #2":
+
+        Bit 0: Unused or unknown effect - Charles mentions that setting this bit causes the scroll values to shift the sync pulse positions, former SMS Sprite MAG;
+        Bit 1: Unused or unknown effect - Former SMS Sprite Size selection;
+        Bit 2: M5 SMS / Genesis display select - Set for mnegadrive mode;
+        Bit 3: M2 (Enable V30 - PAL Only) - setting this bit in NTSC mode causes loss of Vertical sync and level 4 interrupts trigger once per 2 frames;
+        Bit 4: M1 (DMA Enable);
+        Bit 5: IE0 (Vertical Interrupt Enable) - Similar to IE1, it will trigger an interrupt immediately when set because they occur in the background;
+        Bit 6: DISP (Display Enable) - Only the BG color is drawn in normal intensity when this bit is cleared;
+        Bit 7: !!! Should be set to 0 normally - Enables 128kB VRAM, corrupts display on a normal system due to address and data rearrengement (and the additional capacity is normally absent);
+
+
+    Register 2 "Nametable Address for Plane A":
+
+        Bit 0: Unused or unknown effect - Saw this marked as "?" somewhere;
+        Bit 1: Unused or unknown effect;
+        Bit 2: Unused or unknown effect;
+        Bit 3: Bit 13 Nametable Address;
+        Bit 4: Bit 14 Nametable Address;
+        Bit 5: Bit 15 Nametable Address;
+        Bit 6: Bit 16 Nametable Address - Only significant when 128kB VRAM is enabled;
+        Bit 7: Unused or unknown effect;
+
+
+    Register 3: "Nametable Address for Window":
+
+        Bit 0: Unused or unknown effect;
+        Bit 1: Bit 11 Nametable Address - Irrelevant in H40 mode;
+        Bit 2: Bit 12 Nametable Address;
+        Bit 3: Bit 13 Nametable Address;
+        Bit 4: Bit 14 Nametable Address;
+        Bit 5: Bit 15 Nametable Address;
+        Bit 6: Bit 16 Nametable Address - Only significant when 128kB VRAM is enabled;
+        Bit 7: Unused or unknown effect;
+
+
+    Register 4: "Nametable Address for Plane B":
+
+        Bit 0: Bit 13 Pattern Nametable Address;
+        Bit 1: Bit 14 Pattern Nametable Address;
+        Bit 2: Bit 15 Pattern Nametable Address;
+        Bit 3: Bit 16 Pattern Nametable Address - Only significant when 128kB VRAM is enabled;
+        Bit 4: Unused or unknown effect;
+        Bit 5: Unused or unknown effect;
+        Bit 6: Unused or unknown effect;
+        Bit 7: Unused or unknown effect;
+
+
+    Register 5: "Sprite Attribute Table Address":
+
+        Bit 0: Bit 09 Attribute Table Address - Irrelevant in H40 mode;
+        Bit 1: Bit 10 Attribute Table Address;
+        Bit 2: Bit 11 Attribute Table Address;
+        Bit 3: Bit 12 Attribute Table Address;
+        Bit 4: Bit 13 Attribute Table Address;
+        Bit 5: Bit 14 Attribute Table Address;
+        Bit 6: Bit 15 Attribute Table Address;
+        Bit 7: Bit 16 Attribute Table Address - Only significant when 128kB VRAM is enabled;
+
+
+    Register 6: "Sprite Pattern Generator Address":
+
+        Bit 0: Unused or unknown effect;
+        Bit 1: Unused or unknown effect;
+        Bit 2: Unused or unknown effect - Former SMS Bit 13 Sprite Pattern Base Address;
+        Bit 3: Unused or unknown effect;
+        Bit 4: Unused or unknown effect;
+        Bit 5: Bit 16 Sprite Pattern Base Address - Used to reposition the sprite tile data to the upper half of VRAM when 128kB VRAM is enabled;
+        Bit 6: Unused or unknown effect;
+        Bit 7: Unused or unknown effect;
+
+
+    Register 7: "Background Color":
+
+        Bit 0: Bit 0 Color Index;
+        Bit 1: Bit 1 Color Index;
+        Bit 2: Bit 2 Color Index;
+        Bit 3: Bit 3 Color Index;
+        Bit 4: Bit 0 Palette Index;
+        Bit 5: Bit 1 Palette Index;
+        Bit 6: Unknown: Shadows background color when disabling drawing (when setting C0001C register 000 bit 6);
+        Bit 7: Unknown: Same as bit 6;
+
+
+    Register 8: "??" (Former SMS Horizontal scroll offset):
+
+        Bit 0: Unused or unknown effect;
+        Bit 1: Unused or unknown effect;
+        Bit 2: Unused or unknown effect;
+        Bit 3: Unused or unknown effect;
+        Bit 4: Unused or unknown effect;
+        Bit 5: Unused or unknown effect;
+        Bit 6: Unused or unknown effect;
+        Bit 7: Unused or unknown effect;
+
+
+    Register 9: "??" (Former SMS Vertical scroll offset):
+
+        Bit 0: Unused or unknown effect;
+        Bit 1: Unused or unknown effect;
+        Bit 2: Unused or unknown effect;
+        Bit 3: Unused or unknown effect;
+        Bit 4: Unused or unknown effect;
+        Bit 5: Unused or unknown effect;
+        Bit 6: Unused or unknown effect;
+        Bit 7: Unused or unknown effect;
+
+
+    Register A: "Horizontal Interrupt Period Register":
+
+        Bit 0: Counter Bit 0;
+        Bit 1: Counter Bit 1;
+        Bit 2: Counter Bit 2;
+        Bit 3: Counter Bit 3;
+        Bit 4: Counter Bit 4;
+        Bit 5: Counter Bit 5;
+        Bit 6: Counter Bit 6;
+        Bit 7: Counter Bit 7;
+
+
+    Register B: "Mode Set Register #3":
+
+        Bit 0: LSCR (Horizontal scroll mode);
+        Bit 1: HSCR (Horizontal scroll mode);
+        Bit 2: VSCR (2-Column based Vertical scrolling);
+        Bit 3: IE2 (enable external interrupts);
+        Bit 4: Force usage of VRAM banks when set disabling the natural VDP addressing / rebasing capability - Only significant when 128kB VRAM is enabled;
+        Bit 5: Selects which VRAM bank (0/1) to use when bit 4 is set - Only significant when 128kB VRAM is enabled;
+        Bit 6: !!! Should be set to 0 normally - Enables RAS0/CAS0 work RAM signals for Dynamic RAM - locks system because CAS0 is used as a non-RAM read strobe on a normal system;
+        Bit 7: Selects 68k address muxed for DRAM operation when cleared or Color code output when set - no effect on a normal system
+
+
+    Register C: "Mode Set Register #4":
+
+        Bit 0: RS1 - Select Horizontal cell mode and internal dot clock divisor) - used to choose between H32/H40, when setting RS1 alone it makes the system produce a slightly faster (~16kHz) horizontal refresh rate;
+        Bit 1: LSM0 (Interlace mode setting);
+        Bit 2: LSM1 (Interlace mode setting);
+        Bit 3: S/TE (Shadow & Highlight);
+        Bit 4: Enable sprite/plane indicator (SPA/B pin) output, changes to input when cleared: sets background pin YS to 0 when SPA/B is 0), on the system this line is pulled to 5V with a 2.2k resistor so it always reads as a 1 - no effect on a normal system;
+        Bit 5: Disable HSync pin / Change HSync to input - messes up EDCLK (becomes constant 13.3 MHz), also used by the 32X; Maybe it could be used for video resyncronization although it's not clear how.
+        Bit 6: Outputs pixel clock on VSync pin when set, otherwise it's the VSync pulse - the VSync pulse is used by the 32X;
+        Bit 7: RS0 - Selects External Dot Clock (EDCLK pin) - onlçy to be used for "normal" H40, setting RS0 alone (H32 mode) will result in a 19.5kHz horizontal refresh rate
+
+
+    Register D: "Horizontal Scroll Table Base Address":
+
+        Bit 0: Bit 10 Table Base Address;
+        Bit 1: Bit 11 Table Base Address;
+        Bit 2: Bit 12 Table Base Address;
+        Bit 3: Bit 13 Table Base Address;
+        Bit 4: Bit 14 Table Base Address;
+        Bit 5: Bit 15 Table Base Address;
+        Bit 6: Bit 16 Table Base Address - Only significant when 128kB VRAM is enabled;
+        Bit 7: Unused or unknown effect;
+
+
+    Register E: "Pattern Generator Base Address":
+
+        Bit 0: "Bit 16 Scroll A Pattern Generator Base Address - Used to reposition the tile data to the upper half of VRAM when 128kB VRAM is enabled;
+        Bit 1: Unused or unknown effect;
+        Bit 2: Unused or unknown effect;
+        Bit 3: Unused or unknown effect;
+        Bit 4: "Bit 16 Scroll B Pattern Generator Base Address - Used to reposition the tile data to the upper half of VRAM when 128kB VRAM is enabled;
+        Bit 5: Unused or unknown effect;
+        Bit 6: Unused or unknown effect;
+        Bit 7: Unused or unknown effect;
+
+
+    Register F: "VDP Auto Increment Amount":
+
+        Bit 0: Bit 0 Increment Amount;
+        Bit 1: Bit 1 Increment Amount;
+        Bit 2: Bit 2 Increment Amount;
+        Bit 3: Bit 3 Increment Amount;
+        Bit 4: Bit 4 Increment Amount;
+        Bit 5: Bit 5 Increment Amount;
+        Bit 6: Bit 6 Increment Amount;
+        Bit 7: Bit 7 Increment Amount;
+
+
+    Register 10: "Nametable Size":
+
+        Bit 0: HSZ0 (Horizontal Nametable size);
+        Bit 1: HSZ1 (Horizontal Nametable size) - When set alone it only draws the first row, repeated over all the screen;
+        Bit 2: Unused or unknown effect;
+        Bit 3: Unused or unknown effect;
+        Bit 4: VSZ0 (Vertical Nametable size);
+        Bit 5: VSZ1 (Vertical Nametable size) - When set alone it reads the nametable without the second MSB address as if the V128 nametable had a pair of "holes" 32 tiles high;
+        Bit 6: Unused or unknown effect;
+        Bit 7: Unused or unknown effect;
+
+
+    Register 11: "Window Horizontal Position":
+
+        Bit 7: RIGT;
+        Bit 6: Unused or unknown effect;
+        Bit 5: Unused or unknown effect;
+        Bit 4: WHP5;
+        Bit 3: WHP4;
+        Bit 2: WHP3;
+        Bit 1: WHP2;
+        Bit 0: WHP1;
+
+
+    Register 12: "Window Vertical Position":
+
+        Bit 7: DOWN;
+        Bit 6: Unused or unknown effect;
+        Bit 5: Unused or unknown effect;
+        Bit 4: WHP4;
+        Bit 3: WHP3;
+        Bit 2: WHP2;
+        Bit 1: WHP1;
+        Bit 0: WHP0;
+
+
+    Register 13: "DMA Length Counter Low" (Decrements by 1 as the DMA progresses):
+
+        Bit 0: Bit 0 Transfer Amount;
+        Bit 1: Bit 1 Transfer Amount;
+        Bit 2: Bit 2 Transfer Amount;
+        Bit 3: Bit 3 Transfer Amount;
+        Bit 4: Bit 4 Transfer Amount;
+        Bit 5: Bit 5 Transfer Amount;
+        Bit 6: Bit 6 Transfer Amount;
+        Bit 7: Bit 7 Transfer Amount;
+
+
+    Register 14: "DMA Length Counter High" (Decrements as the DMA progresses):
+
+        Bit 0: Bit 8 Transfer Amount;
+        Bit 1: Bit 9 Transfer Amount;
+        Bit 2: Bit 10 Transfer Amount;
+        Bit 3: Bit 11 Transfer Amount;
+        Bit 4: Bit 12 Transfer Amount;
+        Bit 5: Bit 13 Transfer Amount;
+        Bit 6: Bit 14 Transfer Amount;
+        Bit 7: Bit 15 Transfer Amount;
+
+
+    Register 15: "DMA Source Address - Low Byte" (Increments by 1 as the DMA progresses):
+
+        Bit 0: Source Address bit 1;
+        Bit 1: Source Address bit 2;
+        Bit 2: Source Address bit 3;
+        Bit 3: Source Address bit 4;
+        Bit 4: Source Address bit 5;
+        Bit 5: Source Address bit 6;
+        Bit 6: Source Address bit 7;
+        Bit 7: Source Address bit 8;
+
+
+    Register 16: "DMA Source Address - Middle Byte" (Increments by 1 when Reg 15 has carry as the DMA progresses):
+
+        Bit 0: Source Address bit 9;
+        Bit 1: Source Address bit 10;
+        Bit 2: Source Address bit 11;
+        Bit 3: Source Address bit 12;
+        Bit 4: Source Address bit 13;
+        Bit 5: Source Address bit 14;
+        Bit 6: Source Address bit 15;
+        Bit 7: Source Address bit 16;
+
+
+    Register 17: "DMA Source Address - High Byte" (Does not increment as the DMA progresses):
+
+        Bit 0: Source Address bit 17;
+        Bit 1: Source Address bit 18;
+        Bit 2: Source Address bit 19;
+        Bit 3: Source Address bit 20;
+        Bit 4: Source Address bit 21;
+        Bit 5: Source Address bit 22;
+        Bit 6: DMD0 (DMA Copy Mode or Address bit 23 in case of a 68k -> VDP transfer);
+        Bit 7: DMD1 (DMA Fill/Copy Mode when set, DMA Transfer when cleared);
