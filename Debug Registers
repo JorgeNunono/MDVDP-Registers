@@ -1,33 +1,33 @@
-    port C00018: "Debug register offset‌ index"
+    port C00018: "Debug register offset‌ index and argument"
 
-        Bit 0: Unused or unknown effect;
-        Bit 1: Unused or unknown effect;
-        Bit 2: Unused or unknown effect;
-        Bit 3: Unused or unknown effect;
-        Bit 4: Unused or unknown effect;
-        Bit 5: Unused or unknown effect;
-        Bit 6: Unused or unknown effect;
-        Bit 7: Unused or unknown effect;
+        Bit 0: Debug register argument field;
+        Bit 1: Debug register argument field;
+        Bit 2: Debug register argument field;
+        Bit 3: Debug register argument field;
+        Bit 4: Debug register argument field;
+        Bit 5: Debug register argument field;
+        Bit 6: Debug register argument field;
+        Bit 7: Debug register argument field;
         Bit 8: Debug register selection;
         Bit 9: Debug register selection;
         Bit10: Debug register selection;
         Bit11: Debug register selection;
-        Bit12: Unused or unknown effect;
-        Bit13: Unused or unknown effect;
-        Bit14: Unused or unknown effect;
-        Bit15: Unused or unknown effect;
+        Bit12: Unused;
+        Bit13: Unused;
+        Bit14: Unused;
+        Bit15: Unused;
 
     
     port C0001C: 
         
-        register   0: reading returns high-z (accessible by default without needing to write to C00018)
+        register   0: reading returns high-z no arguments, accessible by default without needing to write to C00018
     
         Bit 0: Unused or unknown effect;
         Bit 1: Unknown: Appears to cause a infinite CRAM write cycle under certain circunstances. Unrecoverable, needs power cycle
         Bit 2: Unused or unknown effect;
         Bit 3: Unknown: Appears to cause a infinite CRAM write cycle under certain circunstances. Unrecoverable, needs power cycle
         Bit 4: Unused or unknown effect;
-        Bit 5: Unknown: Appears to change VRAM interface when set (maybe non multiplexed SRAM-based?). Displays junk in a normal system because it only accesses up to 256 (scattered) locations
+        Bit 5: Expose non multiplexed VRAM address on pins: YS (bit A16), RD7..0 (bits A15 to A8) and AD7..0 (bits A7 to A0). Displays junk in a normal system because it only accesses up to 256 locations. Seems that the VDP will not be able to read back any data
         Bit 6: Disables display and shows background color in normal or shadowed intensity, takes priority over register 1 - bit 6
         Bit 7: Forces layers to be always active (early systems will apply wire-OR to the color output and later systems wire-AND. Early systems will also corrupt the CRAM over time to a varying degree if the bits stay set)
         Bit 8: Forces layers to be always active (in combination with bit 7: 01 = sprites always visible, 10: plane A always visible, 11: plane B always visible)
@@ -37,10 +37,10 @@
         Bit12: Unknown: Appears to freeze some sort of sprite internal process resulting in garbage
         Bit13: Unknown: Appears to freeze some sort of sprite internal process
         Bit14: Unknown: Appears to freeze some sort of sprite internal process
-        Bit15: Unused or unknown effect;
+        Bit15: Unused;
 
 
-        register 100: reading returns high-z
+        register 100: reading returns high-z, no arguments
 
         Bit 0: Caution: Selects Z80 clock, 3.57 MHz when cleared or 7.6 MHz when set. Runs the CPU above its spec, may produce a runt pulse when changing the setting. The RAM is able to keep up with the higher speed but the CPU may not on a case by case basis. Speeds up PSG clock as well
         Bit 1: Hazard: EDCLK pin direction, conflicts with external on board driver when set (RS0/1 = 11 H40 video mode will get thrashed, may also harm the VDP or the divider IC pin in a normal system)
@@ -53,13 +53,104 @@
         Bit 8:
         Bit 9:
         Bit10: 
-        Bit11: Unused or unknown effect;
-        Bit12: Unused or unknown effect;
-        Bit13: Unused or unknown effect;
-        Bit14: Unused or unknown effect;
-        Bit15: Unused or unknown effect;
+        Bit11: Unused;
+        Bit12: Unused;
+        Bit13: Unused;
+        Bit14: Unused;
+        Bit15: Unused;
 
   
-        register 200: reading returns a walking 0 bit pattern in the lower byte;
+        register 200: reading returns a walking 0 bit pattern in the lower byte; takes argument from the value written to C00018
+
+        Arg bit 0:
+        Arg bit 1:
+        Arg bit 2:
+        Arg bit 3:
+        Arg bit 4:
+        Arg bit 5:
+        Arg bit 6:
+        Arg bit 7:
+
+
+        register 300: ??? maybe takes argument from the value written to C00018
+
+        Arg bit 0:
+        Arg bit 1:
+        Arg bit 2:
+        Arg bit 3:
+        Arg bit 4:
+        Arg bit 5:
+        Arg bit 6:
+        Arg bit 7:
+
+
+        register 400: ??? maybe takes argument from the value written to C00018
+
+        Arg bit 0:
+        Arg bit 1:
+        Arg bit 2:
+        Arg bit 3:
+        Arg bit 4:
+        Arg bit 5:
+        Arg bit 6:
+        Arg bit 7:
+
+
+        register 500: ??? maybe takes argument from the value written to C00018
+
+        Arg bit 0:
+        Arg bit 1:
+        Arg bit 2:
+        Arg bit 3:
+        Arg bit 4:
+        Arg bit 5:
+        Arg bit 6:
+        Arg bit 7:
+
+
+        register 600: ??? maybe takes argument from the value written to C00018
+
+        Arg bit 0:
+        Arg bit 1:
+        Arg bit 2:
+        Arg bit 3:
+        Arg bit 4:
+        Arg bit 5:
+        Arg bit 6:
+        Arg bit 7:
+
+
+        register 700: ??? maybe takes argument from the value written to C00018
+
+        Arg bit 0:
+        Arg bit 1:
+        Arg bit 2:
+        Arg bit 3:
+        Arg bit 4:
+        Arg bit 5:
+        Arg bit 6:
+        Arg bit 7:
+
+
+        register 800: ??? maybe takes argument from the value written to C00018
+
+        Arg bit 0:
+        Arg bit 1:
+        Arg bit 2:
+        Arg bit 3:
+        Arg bit 4:
+        Arg bit 5:
+        Arg bit 6:
+        Arg bit 7:
+
 
         register f00: VDP resets when written to
+
+        Arg bit 0:
+        Arg bit 1:
+        Arg bit 2:
+        Arg bit 3:
+        Arg bit 4:
+        Arg bit 5:
+        Arg bit 6:
+        Arg bit 7:
