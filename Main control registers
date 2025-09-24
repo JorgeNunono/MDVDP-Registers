@@ -12,15 +12,15 @@
 
     Register 1 "Mode Set Register #2":
 
-        Bit 0: Unused or unknown effect - Charles mentions that setting this bit causes the scroll values to shift the sync pulse positions, former SMS Sprite MAG;
+        Bit 0: Unused or unknown effect - Charles mentions that setting this bit causes the scroll values to shift the sync pulse positions (can't replicate it), former SMS Sprite MAG;
         Bit 1: Unused or unknown effect - Former SMS Sprite Size selection;
-        Bit 2: M5 SMS / Genesis display select - Set for mnegadrive mode;
-        Bit 3: M2 (Enable V30 - PAL Only) - setting this bit in NTSC mode causes loss of Vertical sync and level 4 interrupts trigger once per 2 frames;
+        Bit 2: M5 SMS / Genesis display select - Set for megadrive mode;
+        Bit 3: M2 (Enable V30 - PAL Only) - setting this bit in NTSC mode causes loss of Vertical sync and level 6 interrupts trigger once per 2 frames;
         Bit 4: M1 (DMA Enable);
         Bit 5: IE0 (Vertical Interrupt Enable) - Similar to IE1, it will trigger an interrupt immediately when set because they occur in the background;
         Bit 6: DISP (Display Enable) - Only the BG color is drawn in normal intensity when this bit is cleared;
         Bit 7: !!! Should be set to 0 normally - Enables 128kB VRAM, corrupts display on a normal system due to address and data rearrengement (and the additional capacity is normally absent);
-                   Sprite Y-cache is not aware if the 128kBytes are installed or not, it will store the data even if the VRAM is not there (unknown usefulness)
+                   Sprite Y-cache is not aware if the 128kBytes are installed or not, it will store data when the table is written to even if the VRAM is not there (unknown usefulness);
 
 
     Register 2 "Nametable Address for Plane A":
@@ -139,8 +139,8 @@
         Bit 3: IE2 (enable external interrupts);
         Bit 4: Force usage of VRAM banks when set disabling the natural VDP addressing / rebasing capability - Only significant when 128kB VRAM is enabled;
         Bit 5: Selects which VRAM bank (0/1) to use when bit 4 is set - Only significant when 128kB VRAM is enabled;
-        Bit 6: !!! Should be set to 0 normally - Enables RAS0/CAS0 work RAM signals for Dynamic RAM - locks system because CAS0 is used as a non-RAM read strobe on a normal system;
-        Bit 7: Selects 68k address muxed for DRAM operation when cleared or Color code output when set - no effect on a normal system
+        Bit 6: !!! Should be set to 0 normally - Enables RAS0/CAS0 work RAM signals for Dynamic RAM - locks system because CAS0 is used as a non-RAM read strobe on a normal console;
+        Bit 7: Selects 68k address muxed for DRAM operation when cleared or Color code output on pins 121-128 when set - no effect on a normal system.
 
 
     Register C: "Mode Set Register #4":
