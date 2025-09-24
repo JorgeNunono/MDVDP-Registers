@@ -3,7 +3,7 @@
         Bit 0: !!! Should be set to 0 normally - Enables locking onto external sync via the CSync pin, no display without a valid sync pulse source;
         Bit 1: M3 HV counter latch enable;
         Bit 2: !!! Should be set to 1 normally - M4 - Enables full palette bit depth as opposed to just the LSBs;
-        Bit 3: !!! Should be set to 0 normally - Outputs VCounter(0) on HSync pin when set, messes up EDCLK divisor ratios, RS0/1 = 11 H40 video mode will get thrashed, H32/H40 modes using the internal dot clock generator stay unaffected;
+        Bit 3: !!! Should be set to 0 normally - Outputs a signal similar to VCounter(0) (not exactly the same) on HSync pin when set, messes up EDCLK divisor ratios, RS0/1 = 11 H40 video mode will get thrashed, H32/H40 modes using the internal dot clock generator stay unaffected;
         Bit 4: IE1 (Horizontal interrupt enable) - Will trigger an interrupt immediately when set because they occur in the background anyway;
         Bit 5: LCB (Leftmost column blank), only covers the leftmost 8-pixel column - leftover from SMS;
         Bit 6: Unused or unknown effect, Former SMS horizontal scroll lock;
@@ -20,6 +20,7 @@
         Bit 5: IE0 (Vertical Interrupt Enable) - Similar to IE1, it will trigger an interrupt immediately when set because they occur in the background;
         Bit 6: DISP (Display Enable) - Only the BG color is drawn in normal intensity when this bit is cleared;
         Bit 7: !!! Should be set to 0 normally - Enables 128kB VRAM, corrupts display on a normal system due to address and data rearrengement (and the additional capacity is normally absent);
+                   Sprite Y-cache is not aware if the 128kBytes are installed or not, it will store the data even if the VRAM is not there (unknown usefulness)
 
 
     Register 2 "Nametable Address for Plane A":
